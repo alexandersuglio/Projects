@@ -30,7 +30,7 @@ class game():
 
         self.crew = [["Captain"], ["Lieutenant"], ["Seaman"], ["Seaman"], ["Seaman"], ["Marine"], ["Marine"], ["Surgeon"]]
 
-        self.newCrew = [["Seaman"], ["Marine"]]
+        self.newCrew = ["Seaman", "Marine"]
 
         self.ship = []
 
@@ -57,7 +57,9 @@ class game():
         #print(" Crewed by:")
 
         print()
+
         crew = self.ship[1:]
+        crew.sort()
 
         for guy in crew:
             print("", guy[0],": ", guy[1][0], guy[1][1])
@@ -66,7 +68,6 @@ class game():
 
         #for i in self.ship:
         #   print(i, end='\n')
-
 
     def loseCrewMember(self):
 
@@ -82,36 +83,31 @@ class game():
             pick = random.randrange(1, ceil)
             #print(pick)
 
-
             print("you lost", self.ship[pick][0], self.ship[pick][1][0], self.ship[pick][1][1],"!")
             self.ship.pop(pick)
 
             ceil -= 1
 
-
     def gainCrewMember(self):
 
         pick = random.randrange(0, 2)
-
         newCrew = self.newCrew[pick]
 
         first_name = random.choice(self.firstNames)
         last_name = random.choice(self.lastNames)
-        # self.crew.append([first_name, last_name])
 
-        #self.ship = [random.choice(self.shipNames)] + self.crew
         newAddition = [newCrew, [first_name, last_name]]
-        print("got new ", newAddition)
-
+        print("Reinforcements arrived!", newAddition[0], newAddition[1][0], newAddition[1][1],"at your service!")
         self.ship.append(newAddition)
 
-
-
-
+    def battleFieldPromotion(self):
+        crew = self.ship[1:]
+        crew.sort()
+        print(crew[0][0] == 'Captain')
+        print(crew[1][0] == "Lieutenant")
 
 
 print()
-
 
 game1 = game()
 game1.buildCrew()
@@ -119,32 +115,18 @@ game1.start()
 
 game1.allHands()
 
+print("--------------------------------------------")
 game1.loseCrewMember()
-game1.loseCrewMember()
-game1.loseCrewMember()
-game1.loseCrewMember()
-game1.loseCrewMember()
-game1.loseCrewMember()
-game1.loseCrewMember()
-game1.loseCrewMember()
-game1.loseCrewMember()
-
-#print(len(game1.ship))
-#game1.loseCrewMember()
-# print("****")
-
-print("\nall you have left is: ")
-game1.allHands()
-
-# print(len(game1.ship))
-
+# game1.gainCrewMember()
+print("--------------------------------------------")
 
 print()
 
-# game1.allHands()
-
+game1.allHands()
 
 # ruby = game1.ship
 # for i in ruby:
 #     print(i, end="\n")
-game1.gainCrewMember()
+# print()
+
+# game1.battleFieldPromotion()
