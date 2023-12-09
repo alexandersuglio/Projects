@@ -28,6 +28,7 @@ class game():
             "Hopkins", "Forbes", "Johnson", "Cross", "Owen", "Harmon", "Horton", "Franklin"
         ]
 
+        # ["Navigator"], ["Quartermaster"]
         self.crew = [["Captain"], ["Lieutenant"], ["Seaman"], ["Seaman"], ["Seaman"], ["Marine"], ["Marine"], ["Surgeon"]]
 
         self.newCrew = ["Seaman", "Marine"]
@@ -83,10 +84,13 @@ class game():
             pick = random.randrange(1, ceil)
             #print(pick)
 
-            print("you lost", self.ship[pick][0], self.ship[pick][1][0], self.ship[pick][1][1],"!")
+            print("You've lost", self.ship[pick][0], self.ship[pick][1][0], self.ship[pick][1][1],"!")
             self.ship.pop(pick)
 
             ceil -= 1
+
+            #if self.ship[pick][0] == "Captain":
+            self.battleFieldPromotion()
 
     def gainCrewMember(self):
 
@@ -103,9 +107,33 @@ class game():
     def battleFieldPromotion(self):
         crew = self.ship[1:]
         crew.sort()
-        print(crew[0][0] == 'Captain')
-        print(crew[1][0] == "Lieutenant")
 
+        if crew[0][0] != 'Captain':
+           print("You don't have a captain!", crew[0][0], crew[0][1][0], crew[0][1][1],"has been promoted to Captain!")
+           crew[0][0] = 'Captain'
+
+        #if 'Captain' not in crew and 'Lieutenant' in crew:
+        #    print("you don't have a capt but you have an lt")
+
+        # for i in crew:
+            # if 'Captain' not in crew:
+
+                # print("no capt")
+                # print("You don't have a captain!", crew[0][0], crew[0][1][0], crew[0][1][1], "has been promoted to Captain!")
+
+        #print(crew[0][0] == 'Captain')
+        #print(crew[1][0] == "Lieutenant")
+
+    def event1(self):
+        # options = ["losecrew", "gaincrew"]
+
+        pick = random.randrange(0, 2)
+        # print("pick", pick)
+
+        if pick == 0:
+            self.loseCrewMember()
+        if pick == 1:
+            self.gainCrewMember()
 
 print()
 
@@ -115,18 +143,25 @@ game1.start()
 
 game1.allHands()
 
+# print("--------------------------------------------")
+# game1.loseCrewMember()
 print("--------------------------------------------")
-game1.loseCrewMember()
 # game1.gainCrewMember()
-print("--------------------------------------------")
+# print("--------------------------------------------")
 
 print()
 
-game1.allHands()
+game1.event1()
 
-# ruby = game1.ship
-# for i in ruby:
-#     print(i, end="\n")
-# print()
+# game1.allHands()
 
-# game1.battleFieldPromotion()
+
+'''
+ruby = game1.ship[1:]
+
+for i in ruby:
+    print(i, end='\n')
+    print('Seaman' in i)
+    if 'Chef' not in i and "Captain" in i:
+        print("works!")
+'''
